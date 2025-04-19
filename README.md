@@ -1,9 +1,9 @@
 # 🤖 AI Tools Hub  
 ### **Full-Stack AI Application Suite with FastAPI, Gradio, and React**  
 
-| About | Home | Tools Light Theme | Tools Dark Theme |
-| ------ | ------ | ------  | ------ |
-| ![About](https://github.com/user-attachments/assets/a9ff513e-652b-488c-a732-6a90c5267cbe) |  ![Home](https://github.com/user-attachments/assets/fb6e6bbd-756c-40b3-9a54-f98ee770b837) | ![Tools Light Theme](https://github.com/user-attachments/assets/4c91b05a-205b-4be2-8cf2-d9f9b3a4b7c0) | ![Tools Dark Theme](https://github.com/user-attachments/assets/1e8645ed-24b7-4b1d-853c-357fa7bd3914) |
+| Home | Tools |
+| ------ | ------ |
+| ![About](https://github.com/user-attachments/assets/a9ff513e-652b-488c-a732-6a90c5267cbe) ![Home](https://github.com/user-attachments/assets/fb6e6bbd-756c-40b3-9a54-f98ee770b837) | ![Tools Light Theme](https://github.com/user-attachments/assets/4c91b05a-205b-4be2-8cf2-d9f9b3a4b7c0) ![Tools Dark Theme](https://github.com/user-attachments/assets/1e8645ed-24b7-4b1d-853c-357fa7bd3914) |
 
 
 ## ⚓ Featured Tools  
@@ -149,8 +149,7 @@ flowchart TB
     pip install -r requirements.txt
 
     python -u server.py --reload
-    or
-    uvicorn server:app --port=10000
+
     ```
 
 6. Open browser and go to `http://localhost:10000/` to view the application
