@@ -81,5 +81,4 @@ async def serve_react_app(request: Request, full_path: str):
     return templates.TemplateResponse("index.html", {"request": request})
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 10000))
-    uvicorn.run("server:app", host="0.0.0.0", port=port)
+    uvicorn.run(app, port=10000)
