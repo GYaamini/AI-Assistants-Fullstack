@@ -82,6 +82,4 @@ async def serve_react_app(request: Request, full_path: str):
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 10000))
-    host = "127.0.0.1" if os.getenv("PORT") is None else "0.0.0.0"
-
-    uvicorn.run("server:app", host=host, port=port)
+    uvicorn.run("server:app", host="0.0.0.0", port=port)
