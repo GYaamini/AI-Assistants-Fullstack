@@ -1,4 +1,4 @@
-name: Flask + Vite App Docker Image
+name: FastApi + Vite App Docker Image
 
 on:
   # workflow_dispatch:
