@@ -1,0 +1,70 @@
+name: Deploy App to GitHub Pages and Render
+
+on:
+    workflow_dispatch:
+#   push:
+#     branches:
+#       - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      # Install dependencies and build the Vite app
+      - name: Install frontend dependencies
+        env:
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      # Set up Python for the backend
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11' 
+
+      # Install backend dependencies
+      - name: Install backend dependencies
+        env:
+          watsonx_API: ${{ secrets.watsonx_API }}
+          project_id: ${{ secrets.project_id }}
+          TTS_API_KEY: ${{ secrets.TTS_API_KEY }}
+          TTS_SERVICE_URL: ${{ secrets.TTS_SERVICE_URL }}
+          STT_API_KEY: ${{ secrets.STT_API_KEY }}
+          STT_SERVICE_URL: ${{ secrets.STT_SERVICE_URL }}
+
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
+      # Deploy to GitHub Pages using gh-pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages  # The branch to deploy to
+          folder: frontend/dist  # The folder containing the production build
+
+      # Deploy the project to Render
+      - name: Deploy to Render
+        uses: JorgeLNJunior/render-deploy@v1.4.5
+        with:
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_PAT }}
+          wait_deploy: true

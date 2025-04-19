@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Translation Assistant</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link 
+      rel="stylesheet" 
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+    <link rel="stylesheet" href="/translator_assistant/style.css" />
+    <link rel="icon" href="/translator_assistant/icon.png" />
+
+    <script src="https://js.puter.com/v2/"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/static/env.js"></script>
+    <script src="/translator_assistant/script.js"></script>
+  </head>
+  <body>
+    <div class="container h-700">
+      <div class="row">
+        <div id="header-window" class="col-12" style="margin-top: 2rem">
+          <div class="position-absolute top-0 start-0 d-flex">
+            <a id="back-link">
+              <i class="bi bi-arrow-left-circle-fill fs-4"></i>
+            </a>
+          </div>
+          <div class="position-absolute top-0 end-0 d-flex">
+            <div class="form-check d-inline-block m-0">
+              <input class="form-check-input visually-hidden" type="checkbox" id="light-dark-mode-switch">
+              <label class="form-check-label icon-toggle" for="light-dark-mode-switch">
+                <i class="bi bi-sun-fill light-icon"></i>
+                <i class="bi bi-moon-fill dark-icon d-none"></i>
+              </label>
+            </div>
+          </div>
+          <h1 class="text-center">Translation Voice Assistant</h1>
+          <p class="text-center" style="font-size: 25px">🈳</p>
+          <p class="text-center" style="font-size: 15px">
+            ( Llama3 + Watson's TTS and STT )
+          </p>
+          <div class="text-center model-voice-select-container">
+            <div class="voice-select-container">
+              <select class="voice-select" id="voice-options">
+                <optgroup label="English Voices">
+                  <option value="en-AU_JackExpressive">Jack (Australian)</option>
+                  <option value="en-US_MichaelV3Voice">Michael (American)</option>
+                  <option value="en-US_LisaV3Voice">Lisa (American)</option>
+                  <option value="en-GB_KateV3Voice">Kate (British)</option>
+                  <option value="en-GB_JamesV3Voice">James (British)</option>
+                </optgroup>
+                
+                <optgroup label="French Voices">
+                  <option value="fr-CA_LouiseV3Voice">Louise (Canadian)</option>
+                  <option value="fr-FR_ReneeV3Voice">Renée (France)</option>
+                  <option value="fr-FR_NicolasV3Voice">Nicolas (France)</option>
+                </optgroup>
+                
+                <optgroup label="German Voices">
+                  <option value="de-DE_BirgitV3Voice">Birgit (Germany)</option>
+                  <option value="de-DE_DieterV3Voice">Dieter (Germany)</option>
+                </optgroup>
+                
+                <optgroup label="Spanish Voices">
+                  <option value="es-ES_EnriqueV3Voice">Enrique (Spain)</option>
+                  <option value="es-LA_SofiaV3Voice">Sofía (Latin America)</option>
+                </optgroup>
+                
+                <optgroup label="Italian Voices">
+                  <option value="it-IT_FrancescaV3Voice">Francesca (Italy)</option>
+                </optgroup>
+  
+                <optgroup label="Japanese Voices">
+                  <option value="ja-JP_EmiV3Voice">Emi (Japan)</option>
+                </optgroup>
+                
+                <optgroup label="Korean Voices">
+                  <option value="ko-KR_JinV3Voice">Jin (Korea)</option>
+                </optgroup>
+                
+                <optgroup label="Portuguese Voices">
+                  <option value="pt-BR_IsabelaV3Voice">Isabela (Brazil)</option>
+                </optgroup>
+                
+                <optgroup label="Dutch Voices">
+                  <option value="nl-NL_MerelV3Voice">Merel (Netherlands)</option>
+                </optgroup>
+              </select>
+              <i class="bi bi-mic-fill voice-icon">Output Voice/Language</i>
+            </div>
+            <div class="model-select-container">
+              <select class="model-select" id="model-options">
+                <optgroup label="English">
+                  <option value="en-US_BroadbandModel">US English</option>
+                  <option value="en-GB_BroadbandModel">UK English</option>
+                  <option value="en-AU_BroadbandModel">Australian English</option>
+                </optgroup>
+                
+                <optgroup label="French">
+                  <option value="fr-FR_BroadbandModel">France French</option>
+                  <option value="fr-CA_BroadbandModel">Canadian French</option>
+                </optgroup>
+                
+                <optgroup label="Spanish">
+                  <option value="es-ES_BroadbandModel">Castilian Spanish</option>
+                  <option value="es-LA_BroadbandModel">Latin American Spanish</option>
+                </optgroup>
+                
+                <optgroup label="Other Languages">
+                  <option value="de-DE_BroadbandModel">German</option>
+                  <option value="it-IT_BroadbandModel">Italian</option>
+                  <option value="ja-JP_BroadbandModel">Japanese</option>
+                  <option value="ko-KR_BroadbandModel">Korean</option>
+                  <option value="pt-BR_BroadbandModel">Brazilian Portuguese</option>
+                  <option value="nl-NL_BroadbandModel">Dutch</option>
+                </optgroup>
+              </select>
+              <i class="bi bi-mic-fill voice-icon">Input Voice/Language</i>
+            </div>
+          </div>
+          <div id="language-selected">
+            <p id="to-language"></p>
+            <p id="from-language"></p>
+          </div>
+        </div>
+        <div class="col-12 col-md-8 mx-auto mb-4">
+          <div id="chat-window" class="p-3 h-700">
+            <div id="message-list"></div>
+            <div class="loading-animation my-loading">
+              <div class="loading-dots my-loading">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+            <div class="loading-animation">
+              <div class="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+          <div id="input-window" class="p-3 h-700">
+            <div class="input-group mt-1 input-footer">
+              <input
+                type="text"
+                id="message-input"
+                class="form-control"
+                placeholder="Type your message here..."
+              />
+              <div class="input-group-append">
+                <input 
+                  type="file"
+                  id="image-upload"
+                  class="form-control"
+                  accept="image/*" 
+                  style="display: none;"
+                >
+              </div>
+              <div class="input-group-append">
+                <!-- <button id="send-button" class="btn btn-primary">Send</button> -->
+                <button id="send-button" class="btn btn-primary microphone">
+                  <i class="fa fa-microphone"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+ 
