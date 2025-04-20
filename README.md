@@ -151,5 +151,9 @@ flowchart TB
     python -u server.py --reload
 
     ```
+    * .env in the backend root folder should contain the following
+        * watsonx_API, project_id: from Watsonx.ai 
+        * TTS_API_KEY, TTS_SERVICE_URL: from IBM Cloud TTS service
+        * STT_API_KEY, STT_SERVICE_URL: from IBM Cloud STT service
 
 6. Open browser and go to `http://localhost:10000/` to view the application
