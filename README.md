@@ -132,9 +132,9 @@ flowchart TB
     cd frontend
     ```
    * App.jsx under ./src
-        * For development, set VITE_BASE_URL = http://127.0.0.1:10000 under .env in the frontend root folder and in /frontend/public/static/env.js set BASE_URL = http://127.0.0.1:10000
+        * For development, set VITE_BASE_URL = http://127.0.0.1:10000 under .env in the frontend root folder
         * For Vite, import statement: import.meta.env.VITE_BASE_URL
-        * For production, set VITE_BASE_URL = https://repo-name.onrender.com under environmental variables on gh-pages and Render and also change env.js BASE_URL with production host URL
+        * For production, set VITE_BASE_URL = https://repo-name.onrender.com under environmental variables on gh-pages and Render
     
     ```bash
     npm install

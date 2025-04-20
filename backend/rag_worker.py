@@ -1,5 +1,5 @@
-import os
-import torch
+# import os
+# import torch
 import logging
 
 # Configure logging
@@ -11,13 +11,14 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
-from langchain_ibm import WatsonxLLM
+# from langchain_ibm import WatsonxLLM
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Check for GPU availability and set the appropriate device for computation.
-DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
+# DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
+DEVICE = "cpu"
 
 conversation_retrieval_chain = None
 chat_history = []

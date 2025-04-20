@@ -2,7 +2,7 @@ let lightMode = true;
 let isFirstMessage = true;
 let formData = new FormData();
 const responses = [];
-const baseUrl = window.env.BASE_URL;
+// const baseUrl = window.env.BASE_URL;
 
 async function showBotLoadingAnimation() {
   await sleep(200);
@@ -23,7 +23,7 @@ function hideUserLoadingAnimation() {
 }
 
 const processUserMessage = async (userMessage) => {
-  let response = await fetch(baseUrl + "/pdf_summarizer/get_context", {
+  let response = await fetch("/pdf_summarizer/get_context", {
     method: "POST",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     body: JSON.stringify({ userMessage: userMessage }),
@@ -151,7 +151,7 @@ const populateBotResponse = async (userMessage="") => {
       formData.append('file', file);
 
       // Now send this data to /process-document endpoint
-      let response = await fetch(baseUrl + "/pdf_summarizer/process_document", {
+      let response = await fetch("/pdf_summarizer/process_document", {
         method: "POST",
         headers: { Accept: "application/json" }, // "Content-Type" should not be explicitly set here, the browser will automatically set it to "multipart/form-data"
         body: formData,
@@ -186,7 +186,7 @@ const renderBotResponse = (response, uploadButtonHtml) => {
 
 $(document).ready(function () {
   // Set back link to tools page
-  document.getElementById("back-link").href = `${baseUrl}/tools`;
+  document.getElementById("back-link").href = `/tools`;
 
   populateBotResponse()
 

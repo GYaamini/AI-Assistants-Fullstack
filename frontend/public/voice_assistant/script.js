@@ -6,7 +6,7 @@ let voiceOption = "en-AU_JackExpressive";
 const responses = [];
 const botRepeatButtonIDToIndexMap = {};
 const userRepeatButtonIDToRecordingMap = {};
-const baseUrl = window.env.BASE_URL;
+// const baseUrl = window.env.BASE_URL;
 
 async function showBotLoadingAnimation() {
   await sleep(500);
@@ -28,7 +28,7 @@ function hideUserLoadingAnimation() {
 
 const getSpeechToText = async (userRecording) => {
   const l16Audio = await convertToL16(userRecording.audioBlob);
-  let response = await fetch(baseUrl + "/voice_assistant/speech_to_text", {
+  let response = await fetch("/voice_assistant/speech_to_text", {
     method: "POST",
     headers: {
       'Content-Type': "audio/l16; rate=16000; channels=1"
@@ -226,7 +226,7 @@ const populateBotResponse = async (userMessage, currentImage) => {
     const cleanAiResponse = cleanTextInput(aiResponse.message.content);
 
     // Then convert to speech using your endpoint
-    const ttsResponse = await fetch(`${baseUrl}/voice_assistant/text_to_speech`, {
+    const ttsResponse = await fetch(`/voice_assistant/text_to_speech`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -287,7 +287,7 @@ const populateBotResponse = async (userMessage, currentImage) => {
 
 $(document).ready(function () {
   // Set back link to tools page
-  document.getElementById("back-link").href = `${baseUrl}/tools`;
+  document.getElementById("back-link").href = `/tools`;
 
   // Listen for the "Enter" key being pressed in the input field
   $("#message-input").keyup(function (event) {

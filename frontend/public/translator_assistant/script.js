@@ -6,7 +6,7 @@ let modelOption = "en-US_BroadbandModel"
 const responses = [];
 const botRepeatButtonIDToIndexMap = {};
 const userRepeatButtonIDToRecordingMap = {};
-const baseUrl = window.env.BASE_URL;
+// const baseUrl = window.env.BASE_URL;
 
 async function showBotLoadingAnimation() {
   await sleep(500);
@@ -49,7 +49,7 @@ const getSpeechToText = async (userRecording) => {
   formData.append("audio", l16Audio, "audio.l16");
   formData.append("model",modelOption)
 
-  let response = await fetch(baseUrl + "/translator_assistant/speech_to_text", {
+  let response = await fetch("/translator_assistant/speech_to_text", {
     method: "POST",
     body: formData,
   });
@@ -94,7 +94,7 @@ const processUserMessage = async (userMessage) => {
   );
   const resText = res.message.content;
 
-  let response = await fetch(baseUrl + "/translator_assistant/process_message", {
+  let response = await fetch("/translator_assistant/process_message", {
     method: "POST",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     body: JSON.stringify({ 
@@ -294,7 +294,7 @@ const populateBotResponse = async (userMessage) => {
 $(document).ready(function () {
   // Set back link to tools page
   document.getElementById("back-link").onclick = () => {
-    window.location.href = `${baseUrl}/tools`;
+    window.location.href = `/tools`;
   }
 
   const fromLang = getLanguage(modelOption);

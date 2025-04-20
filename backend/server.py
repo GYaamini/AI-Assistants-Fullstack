@@ -28,11 +28,11 @@ app.add_middleware(
 
 templates = Jinja2Templates(directory=frontend_path)
 
-app = mount_gradio_app(app, career_advisor(), path="/career_advisor")
-app = mount_gradio_app(app, resume_polisher(), path="/resume_polisher")
-app = mount_gradio_app(app, customize_cover_letter(), path="/customize_cover_letter")
-app = mount_gradio_app(app, image_captioning(), path="/image_captioning")
-app = mount_gradio_app(app, meeting_assistant(), path="/meeting_assistant")
+mount_gradio_app(app, career_advisor(), path="/career_advisor")
+mount_gradio_app(app, resume_polisher(), path="/resume_polisher")
+mount_gradio_app(app, customize_cover_letter(), path="/customize_cover_letter")
+mount_gradio_app(app, image_captioning(), path="/image_captioning")
+mount_gradio_app(app, meeting_assistant(), path="/meeting_assistant")
 
 app.include_router(router)
 
@@ -78,6 +78,3 @@ async def serve_static_voice_assistant():
 @app.get("/{full_path:path}", response_class=HTMLResponse)
 async def serve_react_app(request: Request, full_path: str):
     return templates.TemplateResponse("index.html", {"request": request})
-
-if __name__ == "__main__":
-    uvicorn.run(app, port=10000)

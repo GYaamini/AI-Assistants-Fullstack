@@ -1,10 +1,10 @@
 let savedPastText = []; // Variable to store the message
 let savedPastResponse = []; // Variable to store the message
-const baseUrl = window.env.BASE_URL;
+// const baseUrl = window.env.BASE_URL;
 
 document.addEventListener('DOMContentLoaded', () => {
   // Set back link to tools page
-  document.getElementById("back-link").href = `${baseUrl}/tools`;
+  document.getElementById("back-link").href = `/tools`;
 
   const messagesContainer = document.getElementById('messages-container');
   const messageForm = document.getElementById('message-form');
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     async function makePostRequest(msg) {
-      const url = baseUrl + "/chatbot/handle_prompt";  // Make a POST request to this url
+      const url = "/chatbot/handle_prompt";  // Make a POST request to this url
       const requestBody = {
         prompt: msg
       };
