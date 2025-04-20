@@ -78,3 +78,6 @@ async def serve_static_voice_assistant():
 @app.get("/{full_path:path}", response_class=HTMLResponse)
 async def serve_react_app(request: Request, full_path: str):
     return templates.TemplateResponse("index.html", {"request": request})
+
+if __name__ == "__main__":
+    uvicorn.run(app, port=10000)
