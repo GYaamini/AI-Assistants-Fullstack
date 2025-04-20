@@ -11,8 +11,7 @@ from career_coach_worker import career_advisor, resume_polisher, customize_cover
 from image_captioning_worker import image_captioning
 from meeting_assistant_worker import meeting_assistant
 from routes import router
-from dotenv import load_dotenv
-load_dotenv(load_dotenv(override=True))
+
 
 app = FastAPI()
 
@@ -81,7 +80,4 @@ async def serve_react_app(request: Request, full_path: str):
     return templates.TemplateResponse("index.html", {"request": request})
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 10000))
-    host = "127.0.0.1" if os.getenv("PORT") is None else "0.0.0.0"
-
-    uvicorn.run("server:app", host=host, port=port)
+    uvicorn.run(app, port=10000)
