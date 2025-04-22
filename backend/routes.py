@@ -1,6 +1,7 @@
 import base64
 import os
 import json
+import tempfile
 from fastapi import APIRouter, Request, UploadFile, File
 from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
@@ -71,11 +72,12 @@ def get_context_route(request: QuestionRequest):
 @router.post("/pdf_summarizer/process_document")
 async def process_document_route(file: UploadFile = File(...)):
     try:
-        file_path = file.filename
-        with open(file_path, "wb") as f:
-            f.write(await file.read())
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
+            contents = await file.read()
+            tmp.write(contents)
+            tmp_path = tmp.name
 
-        rag_worker.process_document(file_path)
+        rag_worker.process_document(tmp_path)
 
         return JSONResponse(
             content={
@@ -125,7 +127,7 @@ async def process_message_route_translator(data: MessageData):
 
     watsonx_response_speech = text_to_speech(response_text, voice)
     
-    if watsonx_response_speech:
+    if watsonx_response_speech is not None:
         watsonx_response_speech = base64.b64encode(watsonx_response_speech).decode("utf-8")
     else:
         watsonx_response_speech = None
@@ -156,9 +158,8 @@ async def text_to_speech_route_voice(data: TTSData):
     audio = text_to_speech(data.text, data.voice)
     
     if audio is None:
-        return JSONResponse(
-            content={"error": "Failed to convert text to speech"},
-            status_code=500
-        )
+        return JSONResponse(content={"audio": None}, status_code=200)
     
-    return Response(content=audio, media_type="audio/wav")
+    audio = base64.b64encode(audio).decode("utf-8")
+   
+    return JSONResponse(content={"audio": audio})

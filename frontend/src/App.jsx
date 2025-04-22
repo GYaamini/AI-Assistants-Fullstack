@@ -23,6 +23,10 @@ function App() {
               element={<CareerAdvisor />} 
             /> */}
             <Route 
+              path="/anime_portrait" 
+              element={<ToolIframe className="tool-page" tool="/anime_portrait" />} 
+            />
+            <Route 
               path="/career_advisor" 
               element={<ToolIframe className="career-page" tool="/career_advisor" />} 
             />

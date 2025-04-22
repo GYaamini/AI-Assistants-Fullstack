@@ -274,19 +274,28 @@ const populateBotResponse = async (userMessage) => {
   responses.push(response);
   console.log(response)
 
-  const repeatButtonID = getRandomID();
-  botRepeatButtonIDToIndexMap[repeatButtonID] = responses.length - 1;
-  hideBotLoadingAnimation();
-  // Append the random message to the message list
-  $("#message-list").append(
-    `<div class='message-line'><div class='message-box${
-      !lightMode ? " dark" : ""
-    }'>${
-      response.watsonxResponseText
-    }</div><button id='${repeatButtonID}' class='btn volume repeat-button' onclick='playResponseAudio("data:audio/wav;base64," + responses[botRepeatButtonIDToIndexMap[this.id]].watsonxResponseSpeech);console.log(this.id)'><i class='fa fa-volume-up'></i></button></div>`
-  );
+  if (response.watsonxResponseSpeech == null){
+    $("#message-list").append(
+      `<div class='message-line'><div class='message-box${
+        !lightMode ? " dark" : ""
+      }'>${response.watsonxResponseText}
+      </div>`
+    );
+  } else {
+    const repeatButtonID = getRandomID();
+    botRepeatButtonIDToIndexMap[repeatButtonID] = responses.length - 1;
+    hideBotLoadingAnimation();
+    // Append the random message to the message list
+    $("#message-list").append(
+      `<div class='message-line'><div class='message-box${
+        !lightMode ? " dark" : ""
+      }'>${
+        response.watsonxResponseText
+      }</div><button id='${repeatButtonID}' class='btn volume repeat-button' onclick='playResponseAudio("data:audio/wav;base64," + responses[botRepeatButtonIDToIndexMap[this.id]].watsonxResponseSpeech);console.log(this.id)'><i class='fa fa-volume-up'></i></button></div>`
+    );
 
-  playResponseAudio("data:audio/wav;base64," + response.watsonxResponseSpeech);
+    playResponseAudio("data:audio/wav;base64," + response.watsonxResponseSpeech);
+  }
 
   scrollToBottom();
 };

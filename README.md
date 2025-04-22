@@ -3,13 +3,15 @@
 
 | Home | Tools |
 | ------ | ------ |
-| ![About](https://github.com/user-attachments/assets/a9ff513e-652b-488c-a732-6a90c5267cbe) ![Home](https://github.com/user-attachments/assets/fb6e6bbd-756c-40b3-9a54-f98ee770b837) | ![Tools Light Theme](https://github.com/user-attachments/assets/4c91b05a-205b-4be2-8cf2-d9f9b3a4b7c0) ![Tools Dark Theme](https://github.com/user-attachments/assets/1e8645ed-24b7-4b1d-853c-357fa7bd3914) |
+| ![About](https://github.com/user-attachments/assets/a9ff513e-652b-488c-a732-6a90c5267cbe) ![Home](https://github.com/user-attachments/assets/fb6e6bbd-756c-40b3-9a54-f98ee770b837) | ![Tools Light Theme](https://github.com/user-attachments/assets/eef2118e-7e9d-4c0d-ba2b-3ca95bc5f0c8) ![Tools Dark Theme](https://github.com/user-attachments/assets/afd3f207-48a8-4bf1-86a8-5a624bbdc2fa) |
 
-
+---
 ## ⚓ Featured Tools  
 
 | Tool | Description | Core Technologies |
 | ----------------------- | ----------------------- | -----------------------  |
+| **Face to Anime Portrait**<br>![Anime Portrait](https://github.com/user-attachments/assets/63e067f7-c690-4a95-8575-d5d5cf3bd0c0) | Convert face images into Anime portraits | [AnimeGANv2](https://github.com/bryandlee/animegan2-pytorch), Gradio |
+| | | |
 | **Career Coach** <br>![Career Coach light](https://github.com/user-attachments/assets/b6989032-fa89-4ca6-9c38-e31ced961a37) <br>![Career Coach dark](https://github.com/user-attachments/assets/2be3a1ce-ebc7-4e1c-913b-492534d51b2c)| Role specific resume and cover letter tailoring ![Career Advisor](https://github.com/user-attachments/assets/fefe6f41-74b8-4ae2-b8cb-0f44e79d6518) <br>![Resume Polisher](https://github.com/user-attachments/assets/fd462f50-2c70-4617-a032-56c9be46ddd2) <br>![Customize Cover Letter](https://github.com/user-attachments/assets/5fafc663-ddcb-4f94-86bc-74a454091521) | Llama3, Gradio |
 | | | |
 | **Translator Voice Assistant**<br>![Translator Assistant light](https://github.com/user-attachments/assets/fb248203-582a-441a-8d5f-34dbec8bd4a1) ![Translator Assistant dark](https://github.com/user-attachments/assets/77fd5ec6-2322-436f-93c1-09f776d248f2)| Translation with voice/text input and output. Current languages: English, French, German, Spanish, Italian, Portugese, Dutch, Japanese, and Korean | Llama3, Watsonx STT & TTS, FastAPI  |
@@ -43,8 +45,8 @@ flowchart TB
     A <-->|API Calls| E
     H -->|Serves| C
 ```
----
 
+---
 ## 🛠️ Tech Stack  
 
 ### Frontend  
@@ -64,7 +66,6 @@ flowchart TB
 | Voice Processing | Watsonx STT/TTS |  
 
 ---
-
 ## ✨ Key Features  
 
 1. **Multi-Tool Dashboard**  
@@ -113,11 +114,10 @@ flowchart TB
 ```
 
 3. **CI/CD Pipeline**
-    - GitHub Actions for automated testing
     - Docker containerization
-    - Render deployment
----
+    - Netlify frontend deployment
 
+---
 ## Run the App Locally
 
 1. Clone the repository
@@ -149,6 +149,8 @@ flowchart TB
     pip install -r requirements.txt
 
     python -u server.py --reload
+    or
+    uvicorn server:app --host 127.0.0.1 --port 10000
 
     ```
     * .env in the backend root folder should contain the following
@@ -157,3 +159,4 @@ flowchart TB
         * STT_API_KEY, STT_SERVICE_URL: from IBM Cloud STT service
 
 6. Open browser and go to `http://localhost:10000/` to view the application
+---

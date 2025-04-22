@@ -241,36 +241,52 @@ const populateBotResponse = async (userMessage, currentImage) => {
       throw new Error('TTS conversion failed');
     }
 
-    const audioBlob = await ttsResponse.blob();
-    const audioUrl = URL.createObjectURL(audioBlob);
-
+    const audioBlob = await ttsResponse.json();
+  
+    const responseObj = {};
     // Store both text and audio response
-    const responseObj = {
-      text: cleanAiResponse,
-      audioUrl: audioUrl,
-      play: () => new Audio(audioUrl).play()
-    };
-    
-    responses.push(responseObj);
-    hideBotLoadingAnimation();
-    
-    // Display message with playback button
-    const repeatButtonID = getRandomID();
-    botRepeatButtonIDToIndexMap[repeatButtonID] = responses.length - 1;
+    if (audioBlob.audio == null){
+      responseObj = {
+        text: cleanAiResponse,
+      };
+      responses.push(responseObj);
+      hideBotLoadingAnimation();
 
-    $("#message-list").append(
+      $("#message-list").append(
       `<div class='message-line'>
         <div class='message-box${!lightMode ? " dark" : ""}'>${cleanAiResponse}
         </div>
-        <button id='${repeatButtonID}' class='btn volume repeat-button' 
-          onclick='responses[botRepeatButtonIDToIndexMap[this.id]].play()'>
-          <i class='fa fa-volume-up'></i>
-        </button>
       </div>`
-    );
-    
-    // Auto-play the audio response
-    responseObj.play();
+      );
+    } else {
+      const audioUrl = URL.createObjectURL(audioBlob.audio);
+      responseObj = {
+        text: cleanAiResponse,
+        audioUrl: audioUrl,
+        play: () => new Audio(audioUrl).play()
+      };
+      responses.push(responseObj);
+      hideBotLoadingAnimation();
+
+      // Display message with playback button
+      const repeatButtonID = getRandomID();
+      botRepeatButtonIDToIndexMap[repeatButtonID] = responses.length - 1;
+
+      $("#message-list").append(
+        `<div class='message-line'>
+          <div class='message-box${!lightMode ? " dark" : ""}'>${cleanAiResponse}
+          </div>
+          <button id='${repeatButtonID}' class='btn volume repeat-button' 
+            onclick='responses[botRepeatButtonIDToIndexMap[this.id]].play()'>
+            <i class='fa fa-volume-up'></i>
+          </button>
+        </div>`
+      );
+      
+      // Auto-play the audio response
+      responseObj.play();
+    }
+
     scrollToBottom();
     
   } catch (error) {

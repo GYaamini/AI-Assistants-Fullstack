@@ -9,9 +9,16 @@ import pdfSummarizer from "../assets/pdf_summarizer.png"
 import voiceAssistant from "../assets/voice_assistant.png"
 import meetingAssistant from "../assets/meeting_assistant.png"
 import imageCaptioning from "../assets/image_captioning.png"
+import animePortrait from "../assets/anime_portrait.png"
 import chatbot from "../assets/chatbot.png"
 
 export const tools = [
+    {
+        title: "Face to Anime Portrait",
+        image: animePortrait,
+        link: "/anime_portrait",
+        type: "iframe",
+    },
     {
         title: "Career Coach",
         image: careerCoach,

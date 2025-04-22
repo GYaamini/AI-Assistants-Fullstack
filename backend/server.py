@@ -10,6 +10,7 @@ from gradio import mount_gradio_app
 from career_coach_worker import career_advisor, resume_polisher, customize_cover_letter
 from image_captioning_worker import image_captioning
 from meeting_assistant_worker import meeting_assistant
+from face_anime_worker import anime_portrait_generator
 from routes import router
 
 
@@ -33,6 +34,7 @@ mount_gradio_app(app, resume_polisher(), path="/resume_polisher")
 mount_gradio_app(app, customize_cover_letter(), path="/customize_cover_letter")
 mount_gradio_app(app, image_captioning(), path="/image_captioning")
 mount_gradio_app(app, meeting_assistant(), path="/meeting_assistant")
+mount_gradio_app(app, anime_portrait_generator(), path="/anime_portrait")
 
 app.include_router(router)
 

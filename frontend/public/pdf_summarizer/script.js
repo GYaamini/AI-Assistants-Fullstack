@@ -54,8 +54,9 @@ const processUserMessage = async (userMessage) => {
         temperature: 0.3
       }
     );
-
-    return {botResponse: res.message.content};
+    const resText = res.message.content;
+    console.log(resText)
+    return {botResponse: resText};
 
   } catch (error) {
     console.error("Failed to parse JSON:", error);
