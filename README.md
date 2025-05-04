@@ -138,7 +138,7 @@ flowchart TB
     
     ```bash
     npm install
-    nom run build
+    npm run build
     ```
 
 5. Set up Backend
